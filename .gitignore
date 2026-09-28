@@ -1,0 +1,27 @@
+__pycache__/
+.venv/
+.idea/
+.ipynb_checkpoints/
+# Условие задачи
+задача.txt
+# src: трекаем только используемое (data, evaluate); остальное — заготовки,
+# вытесненные финальным скриптом (локально остаются)
+src/bm25.py
+src/dense.py
+src/hybrid.py
+src/make_answer.py
+src/rerank.py
+# История итераций — черновики, в репозиторий не идут
+scripts/archive/
+# Ноутбуки — черновики, в репозиторий не идут
+notebooks/
+# Данные
+dataset/
+# Артефакты прогонов
+*.log
+*.faiss
+*.npy
+embeddings_cache/
+# Ответы воспроизводятся кодом
+answer.csv
+answer_*.csv

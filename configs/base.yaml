@@ -1,0 +1,25 @@
+# Базовые пути и параметры. Все пути — относительно корня проекта.
+data:
+  train: "dataset/train.parquet"
+  queries: "dataset/benchmark_queries.parquet"
+  items: "dataset/benchmark_items.parquet"
+  answer: "answer.csv"
+
+bm25:
+  top_k: 100            # сколько брать с BM25 до фьюжна (для Recall берем с запасом)
+  k1: 1.2
+  b: 0.75
+
+dense:
+  model: "intfloat/multilingual-e5-large"  # OSS, локально, без API; альтернатива: BAAI/bge-m3
+  top_k: 100
+  batch_size: 64
+  doc_fields: ["item_title_raw", "item_description_raw", "item_infm_params_text"]
+
+hybrid:
+  rrf_k: 60             # константа RRF, нечувствительна в диапазоне 30-100
+  top_n: 50             # итоговый бюджет кандидатов на запрос
+
+split:
+  seed: 42
+  valid_queries: 500    # сколько запросов отложить из train под псевдо-бенчмарк

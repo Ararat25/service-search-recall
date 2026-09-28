@@ -1,0 +1,33 @@
+# Финал V4 — параметры, с которыми собран answer_v4.csv (valid Recall@50 = 0.7827).
+# Меняйте по одному за раз и фиксируйте строку в experiments.md.
+seed: 42
+
+data:
+  train: "dataset/train.parquet"
+  queries: "dataset/benchmark_queries.parquet"
+  items: "dataset/benchmark_items.parquet"
+  answer: "answer_v4.csv"   # для сдачи переименовать в answer.csv
+
+pools:                      # пулы веток до слияния (для Recall берем с запасом)
+  bm25_full: 1200
+  bm25_expanded: 500
+  bm25_prf: 400
+  bm25_short: 300
+  tfidf_word_short_12gram: 600
+  tfidf_word_full_1gram: 400
+  tfidf_char_title_35gram: 600
+  tfidf_char_short_34gram: 400
+  top_n: 50
+
+tfidf:
+  word_short: {ngram: [1, 2], max_features: 500000, min_df: 1}
+  word_full: {ngram: [1, 1], max_features: 400000, min_df: 2}
+  char_title: {ngram: [3, 5], max_features: 300000, min_df: 1}
+  char_short: {ngram: [3, 4], max_features: 200000, min_df: 2}
+
+logs:
+  fuzzy_top_queries: 3
+  fuzzy_min_cosine: 0.05
+  fuzzy_max_ids: 30
+
+fusion: round_robin_union -> logs_first -> geo_match_first -> microcat_priority -> top50
